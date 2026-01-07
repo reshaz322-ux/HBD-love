@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Cinematic Book</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Metal+Mania&family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    background:#0b0b0b;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    direction:rtl;
+}
+
+.book{
+    width:600px;
+    height:800px;
+    position:relative;
+    perspective:2200px;
+    cursor:pointer;
+}
+
+.page{
+    width:100%;
+    height:100%;
+    position:absolute;
+    transform-origin:left;
+    transition:transform 4s cubic-bezier(0.25,0.1,0.25,1);
+    background:black;
+}
+
+.page img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.title{
+    position:absolute;
+    top:10%;
+    width:100%;
+    text-align:center;
+    font-family:'Metal Mania', cursive;
+    font-size:50px;
+    color:#e6e6e6;
+    letter-spacing:2px;
+}
+
+.text{
+    position:absolute;
+    left:5%;
+    width:40%;
+    color:#1a1a1a;
+    font-family:'Libre Baskerville', serif;
+    font-size:10px;
+    line-height:1.9;
+}
+
+.center-text{
+    top:50%;
+    transform:translateY(-50%);
+    text-align:center;
+}
+
+.left-text{ left:5%; }
+.right-text{ right:5%; text-align:right; }
+
+#p1{z-index:4}
+#p2{z-index:3}
+#p3{z-index:2}
+#p4{z-index:1}
+
+.flipped{ transform:rotateY(-120deg); }
+
+.audio-overlay{
+    position:absolute;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%);
+    background:rgba(0,0,0,.6);
+    color:white;
+    padding:12px 22px;
+    border-radius:30px;
+    font-family:'Libre Baskerville', serif;
+    font-size:14px;
+    cursor:pointer;
+}
+
+audio{display:none}
+</style>
+</head>
+
+<body>
+
+<div class="book" onclick="flipPage()">
+
+<div class="page" id="p1">
+<img src="cover.jpg">
+</div>
+
+<div class="page" id="p2">
+<img src="wolf.jpg">
+
+<div class="title"></div>
+
+<div class="text left-text center-text">
+
+</div>
+
+
+</div>
+
+<div class="page" id="p3">
+<img src="page.jpg">
+</div>
+
+<div class="page" id="p4"></div>
+</div>
+
+<audio id="voice" src="voice.mp3"></audio>
+
+<script>
+let current = 0;
+const pages = ["p1","p2","p3","p4"];
+
+function flipPage(){
+    if(current < pages.length){
+        document.getElementById(pages[current]).classList.add("flipped");
+        current++;
+    }
+}
+
+function playAudio(e){
+    e.stopPropagation();
+    document.getElementById("voice").play();
+}
+</script>
+
+</body>
+</html>
